@@ -1,8 +1,9 @@
 <?php
 
+namespace FondOfSpryker\Zed\ProductList\Business;
+
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListWriter;
-use FondOfSpryker\Zed\ProductList\Business\ProductListBusinessFactory;
 use FondOfSpryker\Zed\ProductList\ProductListDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\ProductList\Dependency\Service\ProductListToUtilTextServiceBridge;
