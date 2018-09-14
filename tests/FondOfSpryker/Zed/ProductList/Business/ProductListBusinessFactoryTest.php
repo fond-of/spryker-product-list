@@ -140,7 +140,7 @@ class ProductListBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function getProductListPreDeleterPlugins(): void
+    public function testGetProductListPreDeleterPlugins(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
             ->method('offsetGet')
@@ -148,5 +148,18 @@ class ProductListBusinessFactoryTest extends Unit
             ->willReturn([]);
 
         $this->assertEquals([], $this->productListBusinessFactory->getProductListPreDeleterCollection());
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetProductListTransferExpanderPlugins(): void
+    {
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('offsetGet')
+            ->with(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
+            ->willReturn([]);
+
+        $this->assertEquals([], $this->productListBusinessFactory->getProductListTransferExpanderPlugins());
     }
 }

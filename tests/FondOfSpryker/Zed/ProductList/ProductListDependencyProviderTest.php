@@ -44,5 +44,10 @@ class ProductListDependencyProviderTest extends Unit
             [],
             $this->container->offsetGet(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
         );
+
+        $this->assertEquals(
+            [],
+            $this->container->offsetGet(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
+        );
     }
 }
