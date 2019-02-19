@@ -73,7 +73,21 @@ class ProductListBusinessFactoryTest extends Unit
     public function testCreateProductListWriter(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->withConsecutive(
+                [
+                    ProductListDependencyProvider::SERVICE_UTIL_TEXT,
+                ],
+                [
+                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                ],
+                [
+                    ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS,
+                ]
+            )->willReturnOnConsecutiveCalls(true, true, true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->withConsecutive(
                 [
                     ProductListDependencyProvider::SERVICE_UTIL_TEXT,
@@ -98,7 +112,18 @@ class ProductListBusinessFactoryTest extends Unit
     public function testGetProductListPostSaverCollection(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->withConsecutive(
+                [
+                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                ],
+                [
+                    ProductListDependencyProvider::SERVICE_UTIL_TEXT,
+                ]
+            )->willReturnOnConsecutiveCalls(true, true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->withConsecutive(
                 [
                     ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
@@ -117,7 +142,12 @@ class ProductListBusinessFactoryTest extends Unit
     public function testGetProductListPostSaverPlugins(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->with(ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS)
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->with(ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS)
             ->willReturn([]);
 
@@ -130,7 +160,12 @@ class ProductListBusinessFactoryTest extends Unit
     public function testGetProductListPreDeleterCollection(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
             ->willReturn([]);
 
@@ -143,7 +178,12 @@ class ProductListBusinessFactoryTest extends Unit
     public function testGetProductListPreDeleterPlugins(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
             ->willReturn([]);
 
@@ -156,7 +196,12 @@ class ProductListBusinessFactoryTest extends Unit
     public function testGetProductListTransferExpanderPlugins(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->with(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->with(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
             ->willReturn([]);
 
