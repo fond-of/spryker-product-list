@@ -40,6 +40,7 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
             $this->getRepository(),
             $this->createProductListCategoryRelationReader(),
             $this->createProductListProductConcreteRelationReader(),
+            $this->getProductFacade(),
             $this->createProductListExpander()
         );
     }

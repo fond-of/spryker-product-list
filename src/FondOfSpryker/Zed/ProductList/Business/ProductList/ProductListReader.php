@@ -6,6 +6,7 @@ use Generated\Shared\Transfer\ProductListTransfer;
 use Spryker\Zed\ProductList\Business\ProductList\ProductListReader as BaseProductListReader;
 use Spryker\Zed\ProductList\Business\ProductListCategoryRelation\ProductListCategoryRelationReaderInterface;
 use Spryker\Zed\ProductList\Business\ProductListProductConcreteRelation\ProductListProductConcreteRelationReaderInterface;
+use Spryker\Zed\ProductList\Dependency\Facade\ProductListToProductFacadeInterface;
 use Spryker\Zed\ProductList\Persistence\ProductListRepositoryInterface;
 
 class ProductListReader extends BaseProductListReader
@@ -19,18 +20,21 @@ class ProductListReader extends BaseProductListReader
      * @param \Spryker\Zed\ProductList\Persistence\ProductListRepositoryInterface $productListRepository
      * @param \Spryker\Zed\ProductList\Business\ProductListCategoryRelation\ProductListCategoryRelationReaderInterface $productListCategoryRelationReader
      * @param \Spryker\Zed\ProductList\Business\ProductListProductConcreteRelation\ProductListProductConcreteRelationReaderInterface $productListProductConcreteRelationReader
+     * @param \Spryker\Zed\ProductList\Dependency\Facade\ProductListToProductFacadeInterface $productFacade
      * @param \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListTransferExpanderInterface $productListTransferExpander
      */
     public function __construct(
         ProductListRepositoryInterface $productListRepository,
         ProductListCategoryRelationReaderInterface $productListCategoryRelationReader,
         ProductListProductConcreteRelationReaderInterface $productListProductConcreteRelationReader,
+        ProductListToProductFacadeInterface $productFacade,
         ProductListTransferExpanderInterface $productListTransferExpander
     ) {
         parent::__construct(
             $productListRepository,
             $productListCategoryRelationReader,
-            $productListProductConcreteRelationReader
+            $productListProductConcreteRelationReader,
+            $productFacade
         );
 
         $this->productListTransferExpander = $productListTransferExpander;
