@@ -16,7 +16,6 @@ class ProductListRepository extends SprykerProductListRepository implements Prod
      */
     public function getAllProductLists(): ProductListCollectionTransfer
     {
-
         $productListCollectionTransfer = new ProductListCollectionTransfer();
         $query = $this->getFactory()
             ->createProductListQuery();

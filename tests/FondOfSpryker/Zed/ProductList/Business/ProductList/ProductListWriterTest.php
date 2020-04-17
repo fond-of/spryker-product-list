@@ -3,6 +3,9 @@
 namespace FondOfSpryker\Zed\ProductList\Business\ProductList;
 
 use Codeception\Test\Unit;
+use FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListPreDeletePluginInterface;
+use Generated\Shared\Transfer\ProductListResponseTransfer;
+use Generated\Shared\Transfer\ProductListTransfer;
 use ReflectionClass;
 use ReflectionException;
 use Spryker\Zed\ProductList\Business\KeyGenerator\ProductListKeyGenerator;
@@ -21,24 +24,24 @@ class ProductListWriterTest extends Unit
     protected $productListKeyGeneratorMock;
 
     /**
-     * @var array
+     * @var \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListPreDeletePluginInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
      */
-    protected $productListPostSaveCollectionMock;
-
-    /**
-     * @var \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListPreDeleterInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
-     */
-    protected $productListPreDeleterCollectionMock;
-
-    /**
-     * @var \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListWriter
-     */
-    protected $productListWriter;
+    protected $productListPreDeletePluginMocks;
 
     /**
      * @var \Generated\Shared\Transfer\ProductListTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $productListTransferMock;
+
+    /**
+     * @var \Generated\Shared\Transfer\ProductListResponseTransfer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $productListResponseTransferMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListWriter
+     */
+    protected $productListWriter;
 
     /**
      * @return void
@@ -55,21 +58,28 @@ class ProductListWriterTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->productListPostSaveCollectionMock = [];
-
-        $this->productListPreDeleterCollectionMock = [
-            $this->getMockForAbstractClass(ProductListPreDeleterInterface::class),
+        $this->productListPreDeletePluginMocks = [
+            $this->getMockBuilder(ProductListPreDeletePluginInterface::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
         ];
 
-        $this->productListTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\ProductListTransfer')
+        $this->productListTransferMock = $this->getMockBuilder(ProductListTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->productListResponseTransferMock = $this->getMockBuilder(ProductListResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->productListWriter = new ProductListWriter(
             $this->productListEntityManagerMock,
             $this->productListKeyGeneratorMock,
-            $this->productListPostSaveCollectionMock,
-            $this->productListPreDeleterCollectionMock
+            [],
+            [],
+            [],
+            [],
+            $this->productListPreDeletePluginMocks
         );
     }
 
@@ -90,17 +100,20 @@ class ProductListWriterTest extends Unit
             ->method('deleteProductList')
             ->with($this->productListTransferMock);
 
-        $this->productListPreDeleterCollectionMock[0]->expects($this->atLeastOnce())
-            ->method('preDelete')
+        $this->productListPreDeletePluginMocks[0]->expects($this->atLeastOnce())
+            ->method('execute')
             ->with($this->productListTransferMock);
 
         try {
-            $reflection = new ReflectionClass(\get_class($this->productListWriter));
+            $reflection = new ReflectionClass(get_class($this->productListWriter));
 
             $method = $reflection->getMethod('executeDeleteProductListTransaction');
             $method->setAccessible(true);
 
-            $method->invokeArgs($this->productListWriter, [$this->productListTransferMock]);
+            $method->invokeArgs($this->productListWriter, [
+                $this->productListTransferMock,
+                $this->productListResponseTransferMock,
+            ]);
         } catch (ReflectionException $e) {
             $this->fail($e->getMessage());
         }

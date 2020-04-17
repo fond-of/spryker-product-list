@@ -2,14 +2,13 @@
 
 namespace FondOfSpryker\Zed\ProductList\Business\ProductList;
 
-use Fond\Zed\Store\Persistence\ProductListQueryContainerInterface;
+use FondOfSpryker\Zed\ProductList\Persistence\ProductListRepositoryInterface;
 use Generated\Shared\Transfer\ProductListCollectionTransfer;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Spryker\Zed\ProductList\Business\ProductList\ProductListReader as BaseProductListReader;
 use Spryker\Zed\ProductList\Business\ProductListCategoryRelation\ProductListCategoryRelationReaderInterface;
 use Spryker\Zed\ProductList\Business\ProductListProductConcreteRelation\ProductListProductConcreteRelationReaderInterface;
 use Spryker\Zed\ProductList\Dependency\Facade\ProductListToProductFacadeInterface;
-use FondOfSpryker\Zed\ProductList\Persistence\ProductListRepositoryInterface;
 
 class ProductListReader extends BaseProductListReader implements ProductListReaderInterface
 {
@@ -18,10 +17,7 @@ class ProductListReader extends BaseProductListReader implements ProductListRead
      */
     protected $productListTransferExpander;
 
-
     /**
-     * ProductListReader constructor.
-     *
      * @param \FondOfSpryker\Zed\ProductList\Persistence\ProductListRepositoryInterface $productListRepository
      * @param \Spryker\Zed\ProductList\Business\ProductListCategoryRelation\ProductListCategoryRelationReaderInterface $productListCategoryRelationReader
      * @param \Spryker\Zed\ProductList\Business\ProductListProductConcreteRelation\ProductListProductConcreteRelationReaderInterface $productListProductConcreteRelationReader

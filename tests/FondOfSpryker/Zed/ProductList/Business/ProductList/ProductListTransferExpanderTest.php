@@ -3,12 +3,13 @@
 namespace FondOfSpryker\Zed\ProductList\Business\ProductList;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface;
+use FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface;
+use Generated\Shared\Transfer\ProductListTransfer;
 
 class ProductListTransferExpanderTest extends Unit
 {
     /**
-     * @var \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
+     * @var \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]|\PHPUnit\Framework\MockObject\MockObject[]
      */
     protected $productListTransferExpanderPluginsMock;
 
@@ -33,7 +34,7 @@ class ProductListTransferExpanderTest extends Unit
             $this->getMockForAbstractClass(ProductListTransferExpanderPluginInterface::class),
         ];
 
-        $this->productListTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\ProductListTransfer')
+        $this->productListTransferMock = $this->getMockBuilder(ProductListTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

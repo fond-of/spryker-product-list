@@ -14,7 +14,9 @@
   ],
   "require": {
     "php": ">=7.1",
-    "spryker/product-list": "^1.0.0"
+    "spryker/product-list": "^1.6.0",
+    "spryker/product-list-extension": "^1.1.0",
+    "fond-of-spryker/product-list-extension": "dev-master"
   },
   "require-dev": {
     "spryker/code-sniffer": "^0.12",

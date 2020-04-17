@@ -9,7 +9,7 @@ interface ProductListFacadeInterface extends SprykerProductListFacadeInterface
 {
     /**
      * Specification:
-     * - gets all the Productlists
+     * - Retrieve all the product lists
      *
      * @api
      *

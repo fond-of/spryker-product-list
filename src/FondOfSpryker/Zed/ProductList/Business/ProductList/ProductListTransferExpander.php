@@ -7,16 +7,15 @@ use Generated\Shared\Transfer\ProductListTransfer;
 class ProductListTransferExpander implements ProductListTransferExpanderInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
+     * @var \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
      */
     protected $productListTransferExpanderPlugins;
 
     /**
-     * @param \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface[] $productListTransferExpanderPlugins
+     * @param \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface[] $productListTransferExpanderPlugins
      */
-    public function __construct(
-        array $productListTransferExpanderPlugins
-    ) {
+    public function __construct(array $productListTransferExpanderPlugins)
+    {
         $this->productListTransferExpanderPlugins = $productListTransferExpanderPlugins;
     }
 

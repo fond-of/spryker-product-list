@@ -7,9 +7,9 @@ use Spryker\Zed\ProductList\ProductListDependencyProvider as BaseProductListDepe
 
 class ProductListDependencyProvider extends BaseProductListDependencyProvider
 {
-    const PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS = 'PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS';
-    const PRODUCT_LIST_POST_SAVER_PLUGINS = 'PRODUCT_LIST_POST_SAVER_PLUGINS';
-    const PRODUCT_LIST_PRE_DELETER_PLUGINS = 'PRODUCT_LIST_PRE_DELETER_PLUGINS';
+    public const PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER = 'PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER';
+    public const PLUGINS_PRODUCT_LIST_POST_SAVER = 'PLUGINS_PRODUCT_LIST_POST_SAVER';
+    public const PLUGINS_PRODUCT_LIST_PRE_DELETE = 'PLUGINS_PRODUCT_LIST_PRE_DELETE';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -34,8 +34,10 @@ class ProductListDependencyProvider extends BaseProductListDependencyProvider
      */
     public function addProductListPostSaverPlugins(Container $container): Container
     {
-        $container[static::PRODUCT_LIST_POST_SAVER_PLUGINS] = function (Container $container) {
-            return $this->getProductListPostSaverPlugins();
+        $self = $this;
+
+        $container[static::PLUGINS_PRODUCT_LIST_POST_SAVER] = static function () use ($self) {
+            return $self->getProductListPostSaverPlugins();
         };
 
         return $container;
@@ -56,17 +58,19 @@ class ProductListDependencyProvider extends BaseProductListDependencyProvider
      */
     public function addProductListPreDeleterPlugins(Container $container): Container
     {
-        $container[static::PRODUCT_LIST_PRE_DELETER_PLUGINS] = function (Container $container) {
-            return $this->getProductListPreDeleterPlugins();
+        $self = $this;
+
+        $container[static::PLUGINS_PRODUCT_LIST_PRE_DELETE] = static function () use ($self) {
+            return $self->getProductListPreDeletePlugins();
         };
 
         return $container;
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListPreDeleterPluginInterface[]
+     * @return \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListPreDeletePluginInterface[]
      */
-    protected function getProductListPreDeleterPlugins(): array
+    protected function getProductListPreDeletePlugins(): array
     {
         return [];
     }
@@ -78,15 +82,17 @@ class ProductListDependencyProvider extends BaseProductListDependencyProvider
      */
     public function addProductListTransferExpanderPlugins(Container $container): Container
     {
-        $container[static::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS] = function (Container $container) {
-            return $this->getProductListTransferExpanderPlugins();
+        $self = $this;
+
+        $container[static::PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER] = static function () use ($self) {
+            return $self->getProductListTransferExpanderPlugins();
         };
 
         return $container;
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
+     * @return \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
      */
     protected function getProductListTransferExpanderPlugins(): array
     {

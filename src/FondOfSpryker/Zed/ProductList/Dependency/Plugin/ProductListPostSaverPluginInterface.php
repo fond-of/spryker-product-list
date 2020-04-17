@@ -2,19 +2,8 @@
 
 namespace FondOfSpryker\Zed\ProductList\Dependency\Plugin;
 
-use Generated\Shared\Transfer\ProductListTransfer;
+use Spryker\Zed\ProductList\Business\ProductList\ProductListPostSaverInterface;
 
-interface ProductListPostSaverPluginInterface
+interface ProductListPostSaverPluginInterface extends ProductListPostSaverInterface
 {
-    /**
-     * Specification:
-     * - Plugin is triggered after product list object is saved.
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductListTransfer
-     */
-    public function postSave(ProductListTransfer $productListTransfer): ProductListTransfer;
 }

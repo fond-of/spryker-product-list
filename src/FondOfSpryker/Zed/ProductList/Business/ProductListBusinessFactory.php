@@ -13,7 +13,7 @@ use Spryker\Zed\ProductList\Business\ProductListBusinessFactory as BaseProductLi
 
 /**
  * @method \Spryker\Zed\ProductList\ProductListConfig getConfig()
- * @method \Spryker\Zed\ProductList\Persistence\ProductListRepositoryInterface getRepository()
+ * @method \FondOfSpryker\Zed\ProductList\Persistence\ProductListRepositoryInterface getRepository()
  * @method \Spryker\Zed\ProductList\Persistence\ProductListEntityManagerInterface getEntityManager()
  */
 class ProductListBusinessFactory extends BaseProductListBusinessFactory
@@ -27,10 +27,16 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
             $this->getEntityManager(),
             $this->createProductListKeyGenerator(),
             $this->getProductListPostSaverCollection(),
-            $this->getProductListPreDeleterCollection()
+            $this->getProductListPreCreatePlugins(),
+            $this->getProductListPreUpdatePlugins(),
+            $this->getProductListDeletePreCheckPlugins(),
+            $this->getProductListPreDeletePlugins()
         );
     }
 
+    /**
+     * @return \Spryker\Zed\ProductList\Business\ProductList\ProductListReaderInterface
+     */
     public function createProductListReader(): ProductListReaderInterface
     {
         return new ProductListReader(
@@ -43,7 +49,7 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
     }
 
     /**
-     * @return array
+     * @return \Spryker\Zed\ProductList\Business\ProductList\ProductListPostSaverInterface[]
      */
     public function getProductListPostSaverCollection(): array
     {
@@ -58,23 +64,15 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
      */
     public function getProductListPostSaverPlugins(): array
     {
-        return $this->getProvidedDependency(ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS);
+        return $this->getProvidedDependency(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER);
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListPreDeleterInterface[]
+     * @return \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListPreDeletePluginInterface[]
      */
-    public function getProductListPreDeleterCollection(): array
+    public function getProductListPreDeletePlugins(): array
     {
-        return $this->getProductListPreDeleterPlugins();
-    }
-
-    /**
-     * @return \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListPreDeleterPluginInterface[]
-     */
-    public function getProductListPreDeleterPlugins(): array
-    {
-        return $this->getProvidedDependency(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS);
+        return $this->getProvidedDependency(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_DELETE);
     }
 
     /**
@@ -88,10 +86,10 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
+     * @return \FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface[]
      */
     public function getProductListTransferExpanderPlugins(): array
     {
-        return $this->getProvidedDependency(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS);
+        return $this->getProvidedDependency(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER);
     }
 }

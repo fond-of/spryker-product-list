@@ -79,12 +79,21 @@ class ProductListBusinessFactoryTest extends Unit
                     ProductListDependencyProvider::SERVICE_UTIL_TEXT,
                 ],
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER,
                 ],
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_CREATE,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_UPDATE,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_DELETE_PRE_CHECK,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_DELETE,
                 ]
-            )->willReturnOnConsecutiveCalls(true, true, true);
+            )->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
@@ -93,12 +102,21 @@ class ProductListBusinessFactoryTest extends Unit
                     ProductListDependencyProvider::SERVICE_UTIL_TEXT,
                 ],
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER,
                 ],
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_CREATE,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_UPDATE,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_DELETE_PRE_CHECK,
+                ],
+                [
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_DELETE,
                 ]
-            )->willReturnOnConsecutiveCalls($this->productListToUtilTextServiceBridgeMock, [], []);
+            )->willReturnOnConsecutiveCalls($this->productListToUtilTextServiceBridgeMock, [], [], [], [], []);
 
         $productListWriter = $this->productListBusinessFactory->createProductListWriter();
 
@@ -115,7 +133,7 @@ class ProductListBusinessFactoryTest extends Unit
             ->method('has')
             ->withConsecutive(
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER,
                 ],
                 [
                     ProductListDependencyProvider::SERVICE_UTIL_TEXT,
@@ -126,7 +144,7 @@ class ProductListBusinessFactoryTest extends Unit
             ->method('get')
             ->withConsecutive(
                 [
-                    ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS,
+                    ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER,
                 ],
                 [
                     ProductListDependencyProvider::SERVICE_UTIL_TEXT,
@@ -143,12 +161,12 @@ class ProductListBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER)
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_POST_SAVER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_POST_SAVER)
             ->willReturn([]);
 
         $this->assertEquals([], $this->productListBusinessFactory->getProductListPostSaverPlugins());
@@ -157,37 +175,19 @@ class ProductListBusinessFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testGetProductListPreDeleterCollection(): void
+    public function testGetProductListPreDeletePlugins(): void
     {
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_DELETE)
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_PRE_DELETE)
             ->willReturn([]);
 
-        $this->assertEquals([], $this->productListBusinessFactory->getProductListPreDeleterCollection());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetProductListPreDeleterPlugins(): void
-    {
-        $this->containerMock->expects($this->atLeastOnce())
-            ->method('has')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
-            ->willReturn(true);
-
-        $this->containerMock->expects($this->atLeastOnce())
-            ->method('get')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_PRE_DELETER_PLUGINS)
-            ->willReturn([]);
-
-        $this->assertEquals([], $this->productListBusinessFactory->getProductListPreDeleterCollection());
+        $this->assertEquals([], $this->productListBusinessFactory->getProductListPreDeletePlugins());
     }
 
     /**
@@ -197,12 +197,12 @@ class ProductListBusinessFactoryTest extends Unit
     {
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER)
             ->willReturn(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(ProductListDependencyProvider::PRODUCT_LIST_TRANSFER_EXPANDER_PLUGINS)
+            ->with(ProductListDependencyProvider::PLUGINS_PRODUCT_LIST_TRANSFER_EXPANDER)
             ->willReturn([]);
 
         $this->assertEquals([], $this->productListBusinessFactory->getProductListTransferExpanderPlugins());
