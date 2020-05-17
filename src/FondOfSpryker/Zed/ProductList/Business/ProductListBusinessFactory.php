@@ -35,7 +35,7 @@ class ProductListBusinessFactory extends BaseProductListBusinessFactory
     }
 
     /**
-     * @return \Spryker\Zed\ProductList\Business\ProductList\ProductListReaderInterface
+     * @return \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListReaderInterface
      */
     public function createProductListReader(): ProductListReaderInterface
     {

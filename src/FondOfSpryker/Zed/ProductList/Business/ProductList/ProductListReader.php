@@ -13,6 +13,11 @@ use Spryker\Zed\ProductList\Dependency\Facade\ProductListToProductFacadeInterfac
 class ProductListReader extends BaseProductListReader implements ProductListReaderInterface
 {
     /**
+     * @var \FondOfSpryker\Zed\ProductList\Persistence\ProductListRepositoryInterface
+     */
+    protected $productListRepository;
+
+    /**
      * @var \FondOfSpryker\Zed\ProductList\Business\ProductList\ProductListTransferExpanderInterface
      */
     protected $productListTransferExpander;
