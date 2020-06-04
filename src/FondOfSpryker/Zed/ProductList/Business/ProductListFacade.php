@@ -11,7 +11,7 @@ use Spryker\Zed\ProductList\Business\ProductListFacade as SprykerProductListFaca
 class ProductListFacade extends SprykerProductListFacade implements ProductListFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
